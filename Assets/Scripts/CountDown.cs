@@ -12,6 +12,7 @@ public class CountDown : MonoBehaviour
     float startingTime=8f;
     public GameObject Player;
     public bool timerIsActive =true;
+    public PlayerController playerController;
 
     private void Start()
     {
@@ -23,13 +24,14 @@ public class CountDown : MonoBehaviour
         if (timerIsActive)
         {
             currentTime -= 1 * Time.deltaTime;
-            CountDownTime.text = currentTime.ToString("0");
+            CountDownTime.text = currentTime.ToString();
 
-            if (currentTime <= 0)
+            if (currentTime <= 0 )
             {
-                currentTime = 0;
+                if(playerController.VideoPanelActive==false)
+                currentTime = 0.0f;
                 timerIsActive = false;
-                //SceneManager.LoadScene(2);
+                SceneManager.LoadScene(0);
             }
 
             if (currentTime >= 3.3f)

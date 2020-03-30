@@ -9,6 +9,9 @@ TagManager:
   - End
   - Knife
   - Coin
+  - Shock
+  - Scene3
+  - Chain
   layers:
   - Default
   - TransparentFX

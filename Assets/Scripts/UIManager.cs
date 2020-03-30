@@ -9,8 +9,10 @@ public class UIManager : MonoBehaviour
 {
     public int CoinsCollected = 0;
     public int IntelCollected = 0;
+    public int ChemicalsCollected = 0;
     public TextMeshProUGUI Count;
     public TextMeshProUGUI IntelCount;
+    public TextMeshProUGUI ChemicalCount;
     public GameObject InitialPanel;
     public TextMeshProUGUI PlayerDialogue;
     public TextMeshProUGUI EnemyDialogue;
@@ -25,6 +27,8 @@ public class UIManager : MonoBehaviour
     {
         Count.text = CoinsCollected.ToString();
         IntelCount.text = IntelCollected.ToString();
+        ChemicalCount.text = ChemicalsCollected.ToString();
+
         if (Input.GetKey(KeyCode.KeypadEnter))
         {
             PlayerDialogue.text = "";

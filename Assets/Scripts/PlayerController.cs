@@ -14,14 +14,21 @@ public class PlayerController : MonoBehaviour
     public float WalkSpeed , RunSpeed, Jumpforce;
     public bool isFacingRight;
     public bool isGrounded = false;
+    public bool VideoPanelActive = false;
     public GameObject Enemy;
+    public GameObject InvisibleWall;
+    public GameObject ThirdScene;
     public GameObject Panel;
     public GameObject Score;
-    public GameObject HealthBars;
+    public GameObject EndPoint;
+    public GameObject EnemyHealthBar;
+    public GameObject PlayerHealthBar;
     public Image healthimage;
     public HealthSystem healthSystem;
+    public CountDown countDown;
     public KnifeAttack knifeAttack;
     public GameObject InitialPanel;
+    public GameObject Timer;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +36,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         isFacingRight = true;
         healthSystem = GetComponent<HealthSystem>();
+        InvisibleWall.SetActive(false);
     }
 
     // Update is called once per frame
@@ -44,7 +52,9 @@ public class PlayerController : MonoBehaviour
         if (healthSystem.Health <= 0)
         {
             Destroy(gameObject);
+            Destroy(Enemy);
             SceneManager.LoadScene(2);
+
         }
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -93,6 +103,18 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = false;
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Shock"))
+        {
+            gameObject.GetComponent<HealthSystem>().healthDecrease(30);
+        }
+
+        if (collision.gameObject.CompareTag("Scene3"))
+        {
+            InvisibleWall.SetActive(true);
+        }
+    }
 
     private void Flip(float horizontal)
     {
@@ -109,18 +131,27 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("End"))
         {
             Destroy(Enemy);
-            StartCoroutine(Panelview());
+            countDown.timerIsActive = false;
+            VideoPanelActive = true;
+            StartCoroutine(Panelview()); 
         }
     }
 
     IEnumerator Panelview()
     {
-        HealthBars.SetActive(false);
+        PlayerHealthBar.SetActive(false);
+        EnemyHealthBar.SetActive(false);
+        Timer.SetActive(false);
         Score.SetActive(false);
         InitialPanel.SetActive(false);
         Panel.SetActive(true);
+        EndPoint.SetActive(false);
         yield return new WaitForSeconds(8f);
-        SceneManager.LoadScene(2);
+        VideoPanelActive = false;
+        gameObject.GetComponent<CapsuleCollider2D>().offset = new Vector2(-0.03473687f,0.1169736f);
+        gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2(0.9331737f, 2.270053f);
+        PlayerHealthBar.SetActive(true);
+        Score.SetActive(true);
+        Panel.SetActive(false);
     }
-    
 }
