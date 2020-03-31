@@ -6092,6 +6092,7 @@ MonoBehaviour:
   PlayerHealthBar: {fileID: 168854710}
   healthimage: {fileID: 1680264898}
   healthSystem: {fileID: 1954136073}
+  uiManager: {fileID: 2032392288}
   countDown: {fileID: 2032392289}
   knifeAttack: {fileID: 519514585}
   InitialPanel: {fileID: 1443889921}

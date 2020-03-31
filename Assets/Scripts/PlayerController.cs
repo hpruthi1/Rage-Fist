@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public GameObject PlayerHealthBar;
     public Image healthimage;
     public HealthSystem healthSystem;
+    public UIManager uiManager;
     public CountDown countDown;
     public KnifeAttack knifeAttack;
     public GameObject InitialPanel;
@@ -113,6 +114,10 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Scene3"))
         {
             InvisibleWall.SetActive(true);
+            if (uiManager.ChemicalsCollected == 0)
+            {
+                SceneManager.LoadScene(1);
+            }
         }
     }
 

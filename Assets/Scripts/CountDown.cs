@@ -31,7 +31,7 @@ public class CountDown : MonoBehaviour
                 if(playerController.VideoPanelActive==false)
                 currentTime = 0.0f;
                 timerIsActive = false;
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(1);
             }
 
             if (currentTime >= 3.3f)
