@@ -119,6 +119,11 @@ public class PlayerController : MonoBehaviour
                 SceneManager.LoadScene(1);
             }
         }
+
+        if (collision.gameObject.CompareTag("Finish"))
+        {
+            SceneManager.LoadScene(3);
+        }
     }
 
     private void Flip(float horizontal)

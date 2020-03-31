@@ -12,6 +12,7 @@ TagManager:
   - Shock
   - Scene3
   - Chain
+  - PlayerFall
   layers:
   - Default
   - TransparentFX
