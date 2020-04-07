@@ -9,6 +9,7 @@ public class Intel : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            FindObjectOfType<Audiomanager>().Play("Collected");
             uIManager.IntelCollected++;
             Destroy(gameObject);
         }

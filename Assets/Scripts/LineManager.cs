@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,20 +10,24 @@ public class LineManager : MonoBehaviour {
     GameObject line;
 
     void Update () {
-		if (Input.GetMouseButtonDown (1)) {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            line = Instantiate (linePrefab, mousePosition, Quaternion.identity);
-			activeLine = line.GetComponent<LineBehaviour> ();
-		}
-
-		if (activeLine != null) {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-			activeLine.updateLine (mousePosition);
-		}
-
-		if (Input.GetMouseButtonUp (1)){ 
-			activeLine = null;
-            Destroy(line);
+		if (Input.touchCount>0) {
+			Touch touch = Input.GetTouch(0);
+			Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            if(touch.phase == TouchPhase.Began)
+            {
+				line = Instantiate (linePrefab, touchPosition, Quaternion.identity);
+				activeLine = line.GetComponent<LineBehaviour> ();
+            }
+            else if(touch.phase == TouchPhase.Moved)
+            {
+            	// Check activeLine (may be not required, test it)
+				activeLine.updateLine (touchPosition);
+            }
+            else if(touch.phase == TouchPhase.Ended)
+            {
+            	activeLine = null;
+            	Destroy(line);
+            }
 		}
 	}
 

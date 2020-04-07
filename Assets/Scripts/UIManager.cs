@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI IntelCount;
     public TextMeshProUGUI ChemicalCount;
     public GameObject InitialPanel;
+    public GameObject JoystickCanvas;
     public TextMeshProUGUI PlayerDialogue;
     public TextMeshProUGUI EnemyDialogue;
     private void Start()
@@ -21,6 +22,8 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0f;
         InitialPanel.SetActive(true);
         PlayerDialogue.text = "Who Are You?";
+        EnemyDialogue.text = "Go Away..It's Not Safe. Can't you see the board over there?";
+        JoystickCanvas.SetActive(false);
     }
    
     void Update()
@@ -29,30 +32,22 @@ public class UIManager : MonoBehaviour
         IntelCount.text = IntelCollected.ToString();
         ChemicalCount.text = ChemicalsCollected.ToString();
 
-        if (Input.GetKey(KeyCode.KeypadEnter))
-        {
-            PlayerDialogue.text = "";
-            EnemyDialogue.text = "Go Away..It's Not Safe. Can't you see the board over there?";
-        }
-
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            StartCoroutine(GameStart());
-        }
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetMouseButtonDown(0))
         {
             InitialPanel.SetActive(false);
-            //FindObjectOfType<Audiomanager>().Play("BG");
+            JoystickCanvas.SetActive(true);
             Time.timeScale = 1;
         }
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            if (touch.phase == TouchPhase.Began)
+            {
+                InitialPanel.SetActive(false);
+                JoystickCanvas.SetActive(true);
+                Time.timeScale = 1;
+            }
+        }
     }
-
-    IEnumerator GameStart()
-    {
-        PlayerDialogue.text = "I'll get what i want and will go away";
-        EnemyDialogue.text = "Let me see What can you do..I'll kick you a**";
-        yield return new WaitForSeconds(2f);
-        Time.timeScale = 1;
-    }
-
 }

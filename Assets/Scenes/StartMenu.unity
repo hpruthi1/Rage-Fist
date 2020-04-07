@@ -1602,14 +1602,14 @@ MonoBehaviour:
   m_FillRect: {fileID: 1249968560}
   m_HandleRect: {fileID: 1285380450}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
+  m_MinValue: 0
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: -80
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2002631065}
+      - m_Target: {fileID: 1446259540}
         m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
@@ -2287,6 +2287,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1446259538}
   - component: {fileID: 1446259537}
+  - component: {fileID: 1446259539}
+  - component: {fileID: 1446259540}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -2308,7 +2310,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2404,6 +2406,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1446259539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446259536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f04b04baf01b3a40b27fbd0cfaef392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - loop: 0
+    name: ButtonClicked
+    volume: 1
+    pitch: 1
+    clip: {fileID: 8300000, guid: 80c51b227baa92f40a03e3607683d4aa, type: 3}
+    source: {fileID: 0}
+--- !u!114 &1446259540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446259536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37016c65cc51bc44b3df7e921f5ef10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1472650881
 GameObject:
   m_ObjectHideFlags: 0
@@ -3579,7 +3612,6 @@ MonoBehaviour:
   BackPanel: {fileID: 553973447}
   OptionsMenu: {fileID: 2107223337}
   BackButton: {fileID: 605562499}
-  audioMixer: {fileID: 24100000, guid: e409479e60bbc2a4da0127bdfe2135c6, type: 2}
 --- !u!1 &2083398453
 GameObject:
   m_ObjectHideFlags: 0

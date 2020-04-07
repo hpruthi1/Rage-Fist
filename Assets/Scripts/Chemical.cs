@@ -9,6 +9,7 @@ public class Chemical : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            FindObjectOfType<Audiomanager>().Play("Collected");
             uIManager.ChemicalsCollected++;
             Destroy(gameObject);
         }

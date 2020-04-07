@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public bool isFacingRight;
     public bool isGrounded = false;
     public bool VideoPanelActive = false;
+    public bool CanAttack;
     public GameObject Enemy;
     public GameObject InvisibleWall;
     public GameObject ThirdScene;
@@ -25,13 +26,16 @@ public class PlayerController : MonoBehaviour
     public GameObject PlayerHealthBar;
     public Image healthimage;
     public HealthSystem healthSystem;
+    protected Joystick joystick;
+    protected JoyStickButton stickButton;
+    public GameObject JoystickCanvas;
     Audiomanager audiomanager;
     public UIManager uiManager;
     public CountDown countDown;
     public KnifeAttack knifeAttack;
     public GameObject InitialPanel;
     public GameObject Timer;
-    // Start is called before the first frame update
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,17 +44,20 @@ public class PlayerController : MonoBehaviour
         healthSystem = GetComponent<HealthSystem>();
         InvisibleWall.SetActive(false);
         audiomanager = GetComponent<Audiomanager>();
+        joystick = FindObjectOfType<Joystick>();
+        stickButton = FindObjectOfType<JoyStickButton>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         healthimage.fillAmount = healthSystem.Health / 100;
         float horizontal = Input.GetAxisRaw("Horizontal");
+        horizontal += joystick.Horizontal;
         transform.Translate(new Vector2(horizontal * Speed, rb.velocity.y) * Time.deltaTime);
         animator.SetFloat("Speed", Mathf.Abs(horizontal));
-        Flip(horizontal);
         Speed = WalkSpeed;
+        Flip(horizontal);
+        
 
         if (healthSystem.Health <= 0)
         {
@@ -60,20 +67,25 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (joystick.Horizontal >0.5f || joystick.Horizontal<-0.5 || (Input.GetKey(KeyCode.LeftShift)))
         {
             Speed = RunSpeed;
             canRun = true;
             animator.SetTrigger("Run");
         }
-        if (Input.GetKeyDown(KeyCode.F))
+
+        if (stickButton.Pressed == true && !CanAttack)
         {
+            FindObjectOfType<Audiomanager>().Play("Knife");
+            CanAttack = true;
             knifeAttack.KnifeAttackFunction(10);
             animator.SetTrigger("Attack1");
         }
-        if (Input.GetKeyUp(KeyCode.F))
+
+        if (!stickButton.Pressed && CanAttack)
         {
-            animator.ResetTrigger("Attack1");
+            CanAttack = false;
+            animator.SetTrigger("Attack1");
         }
 
         if (Input.GetKey(KeyCode.Return))
@@ -93,7 +105,12 @@ public class PlayerController : MonoBehaviour
             canRun = false;
             animator.ResetTrigger("Run");
         }
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
+    }
+
+    public void Jump()
+    {
+        FindObjectOfType<Audiomanager>().Play("Jump");
+        if (isGrounded == true)
         {
             canJump = true;
             rb.AddRelativeForce(new Vector2(0f, Jumpforce), ForceMode2D.Impulse);
@@ -104,7 +121,6 @@ public class PlayerController : MonoBehaviour
         {
             canJump = false;
         }
-
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -122,6 +138,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Shock"))
         {
+            FindObjectOfType<Audiomanager>().Play("Shock");
             gameObject.GetComponent<HealthSystem>().healthDecrease(30);
         }
 
@@ -168,15 +185,16 @@ public class PlayerController : MonoBehaviour
         Timer.SetActive(false);
         Score.SetActive(false);
         InitialPanel.SetActive(false);
+        JoystickCanvas.SetActive(false);
         Panel.SetActive(true);
         EndPoint.SetActive(false);
         yield return new WaitForSeconds(8f);
         VideoPanelActive = false;
-        //FindObjectOfType<Audiomanager>().Play("Level2");
         gameObject.GetComponent<CapsuleCollider2D>().offset = new Vector2(-0.03473687f,0.1169736f);
         gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2(0.9331737f, 2.270053f);
         PlayerHealthBar.SetActive(true);
         Score.SetActive(true);
+        JoystickCanvas.SetActive(true);
         Panel.SetActive(false);
     }
 }

@@ -6,6 +6,7 @@ public class KnifeAttack : MonoBehaviour
 {
     public LayerMask layer;
     public float Radius;
+    public GameObject Enemy;
 
     public void KnifeAttackFunction(float damage)
     {
@@ -14,7 +15,7 @@ public class KnifeAttack : MonoBehaviour
         {
             if (obj.gameObject.CompareTag("Enemies"))
             {
-                obj.gameObject.GetComponent<Enemy>().TakeDamage(damage);
+                Destroy(Enemy);
             }
         }
     }

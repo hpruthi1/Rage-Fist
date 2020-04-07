@@ -14,6 +14,7 @@ public class Collectables : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            FindObjectOfType<Audiomanager>().Play("Collected");
             uIManager.CoinsCollected++;
             Destroy(gameObject);
         }
