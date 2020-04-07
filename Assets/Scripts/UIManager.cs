@@ -39,9 +39,10 @@ public class UIManager : MonoBehaviour
         {
             StartCoroutine(GameStart());
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetKey(KeyCode.Q))
         {
             InitialPanel.SetActive(false);
+            //FindObjectOfType<Audiomanager>().Play("BG");
             Time.timeScale = 1;
         }
     }

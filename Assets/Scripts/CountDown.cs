@@ -9,7 +9,7 @@ public class CountDown : MonoBehaviour
 {
     public TextMeshProUGUI CountDownTime;
     public float currentTime=0;
-    float startingTime=8f;
+    float startingTime=60f;
     public GameObject Player;
     public bool timerIsActive =true;
     public PlayerController playerController;
@@ -41,6 +41,7 @@ public class CountDown : MonoBehaviour
 
             if (currentTime < 3.5f)
             {
+                //FindObjectOfType<Audiomanager>().Play("Timer");
                 CountDownTime.color = Color.red;
             }
 

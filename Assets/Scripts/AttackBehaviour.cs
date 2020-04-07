@@ -25,7 +25,9 @@ public class AttackBehaviour : StateMachineBehaviour
         rb.MovePosition(newPos);
         if(Vector2.Distance(rb.position, pos.position) <=3.5)
         {
+            //FindObjectOfType<Audiomanager>().Play("Knife");
             animator.SetTrigger("Attack");
+
         }
         enemy.LookAtPlayer();
         

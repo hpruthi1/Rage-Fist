@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public GameObject PlayerHealthBar;
     public Image healthimage;
     public HealthSystem healthSystem;
+    Audiomanager audiomanager;
     public UIManager uiManager;
     public CountDown countDown;
     public KnifeAttack knifeAttack;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
         isFacingRight = true;
         healthSystem = GetComponent<HealthSystem>();
         InvisibleWall.SetActive(false);
+        audiomanager = GetComponent<Audiomanager>();
     }
 
     // Update is called once per frame
@@ -64,14 +66,27 @@ public class PlayerController : MonoBehaviour
             canRun = true;
             animator.SetTrigger("Run");
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             knifeAttack.KnifeAttackFunction(10);
             animator.SetTrigger("Attack1");
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetKeyUp(KeyCode.F))
         {
             animator.ResetTrigger("Attack1");
+        }
+
+        if (Input.GetKey(KeyCode.Return))
+        {
+            if (VideoPanelActive == true)
+            {
+                Panel.SetActive(false);
+                gameObject.GetComponent<CapsuleCollider2D>().offset = new Vector2(-0.03473687f, 0.1169736f);
+                gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2(0.9331737f, 2.270053f);
+                PlayerHealthBar.SetActive(true);
+                Score.SetActive(true);
+                Panel.SetActive(false);
+            }
         }
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
@@ -99,7 +114,6 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
     }
-
     private void OnCollisionExit2D(Collision2D collision)
     {
         isGrounded = false;
@@ -114,8 +128,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Scene3"))
         {
             InvisibleWall.SetActive(true);
-            if (uiManager.ChemicalsCollected == 0)
-            {
+            if (uiManager.ChemicalsCollected == 0 )
+            { 
                 SceneManager.LoadScene(1);
             }
         }
@@ -158,6 +172,7 @@ public class PlayerController : MonoBehaviour
         EndPoint.SetActive(false);
         yield return new WaitForSeconds(8f);
         VideoPanelActive = false;
+        //FindObjectOfType<Audiomanager>().Play("Level2");
         gameObject.GetComponent<CapsuleCollider2D>().offset = new Vector2(-0.03473687f,0.1169736f);
         gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2(0.9331737f, 2.270053f);
         PlayerHealthBar.SetActive(true);

@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<HealthSystem>().healthDecrease(50);
+            collision.gameObject.GetComponent<HealthSystem>().healthDecrease(80);
         }
     }
 
