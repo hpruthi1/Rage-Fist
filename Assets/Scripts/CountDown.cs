@@ -34,14 +34,13 @@ public class CountDown : MonoBehaviour
                 SceneManager.LoadScene(1);
             }
 
-            if (currentTime >= 3.3f)
+            if (currentTime >= 3.5f)
             {
                 CountDownTime.color = Color.black;
             }
 
             if (currentTime < 3.5f)
             {
-                //FindObjectOfType<Audiomanager>().Play("Timer");
                 CountDownTime.color = Color.red;
             }
 

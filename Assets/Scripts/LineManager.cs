@@ -20,7 +20,6 @@ public class LineManager : MonoBehaviour {
             }
             else if(touch.phase == TouchPhase.Moved)
             {
-            	// Check activeLine (may be not required, test it)
 				activeLine.updateLine (touchPosition);
             }
             else if(touch.phase == TouchPhase.Ended)

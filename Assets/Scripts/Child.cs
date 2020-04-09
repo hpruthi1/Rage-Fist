@@ -17,7 +17,6 @@ public class Child : MonoBehaviour
         {
             Endpoint.SetActive(true);
             EndCollider.SetActive(false);
-            
         }
     }
 }

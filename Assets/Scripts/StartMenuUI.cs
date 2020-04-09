@@ -8,6 +8,7 @@ public class StartMenuUI : MonoBehaviour
     public GameObject BackPanel;
     public GameObject OptionsMenu;
     public GameObject BackButton;
+    public Audiomanager audiomanager;
 
     void Start()
     {

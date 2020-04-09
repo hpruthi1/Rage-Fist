@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     protected Joystick joystick;
     protected JoyStickButton stickButton;
     public GameObject JoystickCanvas;
-    Audiomanager audiomanager;
+    public Audiomanager audiomanager;
     public UIManager uiManager;
     public CountDown countDown;
     public KnifeAttack knifeAttack;
@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
         isFacingRight = true;
         healthSystem = GetComponent<HealthSystem>();
         InvisibleWall.SetActive(false);
-        audiomanager = GetComponent<Audiomanager>();
         joystick = FindObjectOfType<Joystick>();
         stickButton = FindObjectOfType<JoyStickButton>();
     }
@@ -108,7 +107,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Jump()
-    {
+    { 
         FindObjectOfType<Audiomanager>().Play("Jump");
         if (isGrounded == true)
         {

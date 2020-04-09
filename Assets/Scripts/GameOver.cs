@@ -7,7 +7,6 @@ public class GameOver : MonoBehaviour
 {
     public void onRestartButtonButton()
     {
-        FindObjectOfType<Audiomanager>().Play("Button");
         SceneManager.LoadScene(0);
     }
 }
