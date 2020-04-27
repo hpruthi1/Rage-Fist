@@ -24,7 +24,7 @@ public class CountDown : MonoBehaviour
         if (timerIsActive)
         {
             currentTime -= 1 * Time.deltaTime;
-            CountDownTime.text = currentTime.ToString();
+            CountDownTime.text = currentTime.ToString("0");
 
             if (currentTime <= 0 )
             {
