@@ -9,7 +9,7 @@ public class CountDown : MonoBehaviour
 {
     public TextMeshProUGUI CountDownTime;
     public float currentTime=0;
-    float startingTime=6f;
+    float startingTime=7f;
     public GameObject Player;
     public bool timerIsActive =true;
     public PlayerController playerController;
